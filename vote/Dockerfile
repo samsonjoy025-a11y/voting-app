@@ -22,9 +22,14 @@ CMD ["python", "app.py"]
 # final defines the stage that will bundle the application for production
 FROM base AS final
 
-# Copy our code from the current folder to the working directory inside the container
-COPY . .
+# Create an unprivileged user for running the application
+RUN useradd --create-home --uid 10001 --shell /usr/sbin/nologin appuser
 
+# Copy the application files and assign ownership to appuser
+COPY --chown=appuser:appuser . .
+
+# Run the application without root privileges
+USER appuser
 # Make port 80 available for links and/or publish
 EXPOSE 80
 

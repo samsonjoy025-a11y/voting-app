@@ -1,3 +1,5 @@
+const path = require('path');
+
 var express = require('express'),
     async = require('async'),
     { Pool } = require('pg'),
@@ -18,9 +20,8 @@ io.on('connection', function (socket) {
 });
 
 var pool = new Pool({
-  connectionString: 'postgres://postgres:postgres@db/postgres'
+  connectionString: process.env.DATABASE_URL
 });
-
 async.retry(
   {times: 1000, interval: 1000},
   function(callback) {

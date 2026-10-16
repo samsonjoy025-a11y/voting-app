@@ -1,0 +1,29 @@
+
+services:
+  vote:
+    build:
+      context: ./vote
+      target: final
+    read_only: true
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=16m
+      - /home/appuser/.gunicorn:rw,noexec,nosuid,size=1m
+    volumes: !reset []
+    ports:
+      - "8080:80"
+
+  result:
+    build:
+      context: ./result
+      target: final
+    image: voting-app-result:production
+    env_file:
+      - .env
+    entrypoint: !reset []
+    command: ["node", "server.js"]
+    read_only: true
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=16m
+    volumes: !reset []
+    ports: !override
+      - "8081:80"

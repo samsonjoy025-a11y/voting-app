@@ -1,0 +1,12 @@
+replicaCount: 1
+
+images:
+  vote: dockersamples/examplevotingapp_vote
+  result: dockersamples/examplevotingapp_result
+  worker: dockersamples/examplevotingapp_worker
+  redis: redis:alpine
+  db: postgres:15-alpine
+
+postgres:
+  user: postgres
+  password: postgres

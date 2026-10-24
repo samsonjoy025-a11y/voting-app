@@ -46,7 +46,7 @@ jobs:
           load: true
 
       - name: Scan vote image with Trivy
-        uses: aquasecurity/trivy-action@0.29.0
+        uses: aquasecurity/trivy-action@v0.36.0
         with:
           image-ref: voting-app-vote:${{ github.sha }}
           format: table
@@ -54,7 +54,7 @@ jobs:
           exit-code: '0'
 
       - name: Scan result image with Trivy
-        uses: aquasecurity/trivy-action@0.29.0
+        uses: aquasecurity/trivy-action@v0.36.0
         with:
           image-ref: voting-app-result:${{ github.sha }}
           format: table
@@ -62,7 +62,7 @@ jobs:
           exit-code: '0'
 
       - name: Scan worker image with Trivy
-        uses: aquasecurity/trivy-action@0.29.0
+        uses: aquasecurity/trivy-action@v0.36.0
         with:
           image-ref: voting-app-worker:${{ github.sha }}
           format: table

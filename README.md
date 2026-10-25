@@ -19,7 +19,6 @@ The local application, container security improvements, CI/CD image publishing, 
 
 The following items remain outstanding:
 
-- A verified demonstration of a deliberate bad Helm release followed by rollback.
 - Automated Kubernetes deployment through GitHub Actions.
 - AWS EKS provisioning, destruction, and recreation using Terraform.
 
@@ -133,30 +132,18 @@ kubectl get pods
 
 Confirm that the deployments are ready and the pods are running before testing the application.
 
-### Roll back a release
 
-First, inspect the release history:
+### Rollback Demonstration
 
-```bash
-helm history voting-app
-```
+A controlled rollback exercise was performed on the local Minikube cluster:
 
-Identify the revision you intend to restore, then replace `REVISION_NUMBER` with that revision:
+1. Deployed a deliberately invalid Vote image tag: `bad-capstone-demo`.
+2. Confirmed that the Vote deployment was configured to use the invalid image.
+3. Ran `helm rollback voting-app 11` to restore the previously known-good release.
+4. Verified that Helm recorded revision 13 as deployed, with the description `Rollback to 11`.
+5. Confirmed that all five application pods—Vote, Result, Worker, Redis, and PostgreSQL—were running and ready after recovery.
 
-```bash
-helm rollback voting-app REVISION_NUMBER
-```
-
-Verify the result:
-
-```bash
-helm status voting-app
-helm history voting-app
-kubectl get deployments
-kubectl get pods
-```
-
-A deliberate bad-release-and-rollback demonstration still needs to be verified and documented with evidence. Do not assume a particular revision is the correct rollback target without checking the release history.
+The pod failure status for the bad release was not captured. The recovery was verified through Helm history and the post-rollback pod status.
 
 ## Infrastructure as Code: AWS EKS
 
@@ -206,7 +193,7 @@ Terraform formatting and configuration validation have passed. AWS authenticatio
 - [x] Validate the Helm chart.
 - [x] Deploy the application to local Kubernetes and verify workload health.
 - [x] Include an architecture diagram.
-- [ ] Demonstrate a deliberate bad Helm release and verify rollback.
+- [x] Demonstrate a deliberate bad Helm release and verify rollback.
 - [ ] Implement and test automated Kubernetes deployment through CI/CD.
 - [ ] Provision an AWS EKS cluster using Terraform.
 - [ ] Demonstrate Terraform destroy and recreation against AWS.

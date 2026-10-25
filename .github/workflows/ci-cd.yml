@@ -69,6 +69,16 @@ jobs:
           severity: CRITICAL
           exit-code: '0'
 
+      - name: Start application for integration testing
+        run: docker compose up -d --build
+
+      - name: Test vote-to-database flow
+        run: bash tests/integration.sh
+
+      - name: Clean up integration test environment
+        if: always()
+        run: docker compose down --volumes --remove-orphans
+
       - name: Log in to GitHub Container Registry
         if: github.event_name == 'push'
         uses: docker/login-action@v3

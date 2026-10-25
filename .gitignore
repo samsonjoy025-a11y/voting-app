@@ -4,3 +4,15 @@ bin/
 obj/
 .vs/
 node_modules/
+
+# Terraform local files and state
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+*.tfplan
+crash.log
+crash.*.log
+
+# Terraform variable files may contain credentials
+*.tfvars
+*.tfvars.json

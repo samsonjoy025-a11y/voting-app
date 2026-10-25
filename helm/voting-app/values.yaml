@@ -1,9 +1,10 @@
+
 replicaCount: 1
 
 images:
-  vote: dockersamples/examplevotingapp_vote
-  result: dockersamples/examplevotingapp_result
-  worker: dockersamples/examplevotingapp_worker
+  vote: ghcr.io/samsonjoy025-a11y/voting-app-vote:8430a5a629f290ee7195e58c06b77e64b6a42ea4
+  result: ghcr.io/samsonjoy025-a11y/voting-app-result:8430a5a629f290ee7195e58c06b77e64b6a42ea4
+  worker: ghcr.io/samsonjoy025-a11y/voting-app-worker:8430a5a629f290ee7195e58c06b77e64b6a42ea4
   redis: redis:alpine
   db: postgres:15-alpine
 
